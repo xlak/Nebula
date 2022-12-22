@@ -112,6 +112,14 @@ server.on("request", (request, response) => {
           })
           response.end(body)
         }
+      } else if (url.startsWith("/check")) {
+        const body = "OK"
+        response.writeHead(200, {
+          "Content-Length": Buffer.byteLength(body),
+          "Content-Type": "text/plain",
+          "Access-Control-Allow-Origin": "*",
+        })
+        response.end(body)
       } else {
         serve(request, response, (err) => {
           response.writeHead(err?.statusCode || 500, null, {
